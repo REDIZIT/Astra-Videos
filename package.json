@@ -1,0 +1,26 @@
+{
+  "name": "video1",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "serve": "vite",
+    "build": "tsc && vite build"
+  },
+  "dependencies": {
+    "@lezer/cpp": "^1.1.2",
+    "@lezer/generator": "^1.7.2",
+    "@lezer/java": "^1.1.3",
+    "@lezer/javascript": "^1.4.21",
+    "@motion-canvas/2d": "^3.17.2",
+    "@motion-canvas/core": "^3.17.2",
+    "@motion-canvas/ffmpeg": "^1.1.0",
+    "simplex-noise": "^4.0.3"
+  },
+  "devDependencies": {
+    "@motion-canvas/ui": "^3.17.2",
+    "@motion-canvas/vite-plugin": "^3.17.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.0.0"
+  }
+}
