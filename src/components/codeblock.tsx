@@ -5,11 +5,14 @@ import { parser as parser_cs2 } from 'lezer-csharp-simple';
 import { parser as parser_nasm } from '../parser/nasm/nasm';
 import { parser as parser_cpp } from '@lezer/cpp';
 import { colors } from '../utils/colorscheme'
-import { TaggedCodeHighlighter } from "../scenes/math";
+import { CSharpCodeHighlighter } from '../scenes/CSharpCodeHighlighter';
+import { NasmCodeHighlighter } from '../scenes/NasmCodeHighlighter';
 
 export interface CodeBlockProps extends RectProps {
-    extension: SignalValue<string>;
-    codeContent: SignalValue<CodeTag[]>;
+    extension?: SignalValue<string>
+    codeContent: SignalValue<CodeTag[]>
+    custom_refTypes?: Set<string>
+    tab_width?: number
 }
 
 export function ToCode(
@@ -33,7 +36,7 @@ export function ToCode(
 
 export class CodeBlock extends Rect {
     @signal()
-    public declare readonly extension: SimpleSignal<string, this>;
+    public declare readonly extension?: SimpleSignal<string, this>;
 
     @signal()
     public declare readonly codeContent: SimpleSignal<CodeTag[], this>;
@@ -60,16 +63,13 @@ export class CodeBlock extends Rect {
 
 
         let highlighter = null
-        if (this.extension() == "c#") {
-            //highlighter = new LezerHighlighter(parser_cs, colors.codeStyle)
-            highlighter = new TaggedCodeHighlighter(colors.codeStyle)
-
-            highlighter.custom_refTypes.add("Token")
-            highlighter.custom_refTypes.add("Tokenizer")
-            highlighter.custom_refTypes.add("Generator")
-        }
-        else if (this.extension().endsWith("asm") || this.extension() == "gas") {
-            highlighter = new LezerHighlighter(parser_nasm, colors.codeStyle)
+        if (this.extension() != null) {
+            if (this.extension() == "c#") {
+                highlighter = new CSharpCodeHighlighter(props.custom_refTypes)
+            }
+            else if (this.extension().endsWith("asm") || this.extension() == "gas") {
+                highlighter = new NasmCodeHighlighter(props.custom_refTypes)
+            }
         }
 
         this.add(<>
@@ -85,6 +85,8 @@ export class CodeBlock extends Rect {
             />
         </>);
 
-        ref_code().code(this.codeContent().toString().replace(/\t/g, '    '))
+        const tab_width = props.tab_width > 0 ? props.tab_width : 4
+
+        ref_code().code(this.codeContent().toString().replace(/\t/g, ' '.repeat(tab_width)))
     }
 }

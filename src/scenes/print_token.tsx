@@ -229,21 +229,24 @@ _start:
 	syscall`
 
 
+
+    const refTypes = new Set(["Token", "Tokenizer", "Generator"])
+
     view.add(
         <>
             <Layout ref={layout_1}>
-                <CodeBlock ref={ref_print} codeContent={CODE`print`} extension="astra" width={160} />
-                <CodeBlock ref={ref_asm} codeContent={code_asm} extension="nasm" width={240} />
-                <CodeBlock ref={ref_cs} codeContent={CODE`Token_Print`} extension="c#" width={220} />
+                <CodeBlock ref={ref_print} codeContent={CODE`print`} extension="astra" width={160} custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_asm} codeContent={code_asm} extension="nasm" width={240} custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_cs} codeContent={CODE`Token_Print`} extension="c#" width={220} custom_refTypes={refTypes} />
                 <Spline ref={ref_arrow} points={[[-arrow_width, 0], [arrow_width, 0]]} stroke={"#555"} lineWidth={8} smoothness={0} endArrow arrowSize={10} />
                 <Spline ref={ref_arrow2} points={[[-arrow_width, 0], [arrow_width, 0]]} stroke={"#555"} lineWidth={8} smoothness={0} endArrow arrowSize={10} />
             </Layout>
             <Layout ref={layout_2}>
-                <CodeBlock ref={ref_cs_token} codeContent={code_cs_token} extension="c#" />
-                <CodeBlock ref={ref_cs_tokenizer} codeContent={code_cs_tokenizer} extension="c#" />
-                <CodeBlock ref={ref_cs_main} codeContent={code_cs_main} extension="c#" />
-                <CodeBlock ref={ref_cs_generator} codeContent={code_cs_generator} extension="c#" />
-                <CodeBlock ref={ref_nasm_result_1} codeContent={code_result_1} extension="nasm" minWidth={240} />
+                <CodeBlock ref={ref_cs_token} codeContent={code_cs_token} extension="c#" custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_cs_tokenizer} codeContent={code_cs_tokenizer} extension="c#" custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_cs_main} codeContent={code_cs_main} extension="c#" custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_cs_generator} codeContent={code_cs_generator} extension="c#" custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_nasm_result_1} codeContent={code_result_1} extension="nasm" minWidth={240} custom_refTypes={refTypes} />
             </Layout>
         </>
        
