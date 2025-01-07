@@ -1,4 +1,4 @@
-import { CODE, makeScene2D, Layout, Spline, Txt } from '@motion-canvas/2d';
+import { CODE, makeScene2D, Layout, Spline, Txt, word } from '@motion-canvas/2d';
 import { all, chain, createRef, delay, easeInCubic, waitFor } from '@motion-canvas/core';
 import { CodeBlock } from '../components/codeblock';
 
@@ -161,6 +161,73 @@ _start:
 	mov rdx, 14
 	syscall`
 
+    const code_tokenizer_2 = `public static class Tokenizer 
+{
+	public static List<Token> Tokenize(string text)
+	{
+		List<Token> tokens = new();
+		
+		string[] lines = text.Split("\\n");
+		for (int i = 0; i < lines.Length; i++)
+		{
+			string line = lines[i];
+			Token token = TokenizeLine(line);
+			tokens.Add(token);
+		}
+		
+		return tokens;
+	}
+	public static Token TokenizeLine(string line)
+	{
+		string[] words = line.Split(" ");
+		if (words[0] == "print")
+		{
+			return new Token_Print()
+			{
+				pointer = words[1]
+			};
+		}
+		
+		throw new Exception("Failed to tokenize line: '" + line + "'");
+	}
+}`
+
+    const code_token_2 = `public abstract class Token
+{
+	public abstract string Generate();
+}
+
+public class Token_Print : Token
+{
+	public string pointer;
+
+	public override string Generate()
+	{
+		return @$"$mov rax, 1
+mov rdi, 1
+mov rsi, {pointer}
+mov rdx, 14
+syscall
+";
+	}
+}`
+
+    const code_result_3 = `section .data
+	msg_first db "My first string", 0
+	msg_second db "My second string", 0
+	msg_third db "The last one", 0
+
+section .bss
+	buffer resb 32
+
+section .text
+_start:
+	mov rax, 1
+	mov rdi, 1
+	mov rsi, msg_first
+	mov rdx, 14
+	syscall`
+
 
     view.add(
         <>
@@ -264,7 +331,7 @@ _start:
     // 6
 
     ref_cs_main().y(-100)
-    ref_cs_main().x(ref_cs_tokenizer().x)
+    ref_cs_main().x(-400)
     yield* all(
         ref_cs_main().opacity(1, 0.5),
         ref_cs_main().y(100, 0.5),
@@ -279,7 +346,7 @@ _start:
     // 7
 
     ref_cs_generator().y(-100)
-    ref_cs_generator().x(ref_cs_token().x)
+    ref_cs_generator().x(480)
     yield* all(
         ref_cs_generator().opacity(1, 0.5),
         ref_cs_generator().y(100, 0.5),
@@ -301,7 +368,7 @@ _start:
     // 9
 
     ref_nasm_result_1().y(0)
-    ref_nasm_result_1().x(ref_cs_generator().x)
+    ref_nasm_result_1().x(480)
     yield* all(
         ref_nasm_result_1().opacity(1, 0.5),
         ref_nasm_result_1().y(100, 0.5),
@@ -327,6 +394,66 @@ _start:
 
 
 
+    // 12
+
+    ref_cs_tokenizer().y(0)
+    //ref_cs_tokenizer().x(-400)
+    yield* all(
+        ref_cs_tokenizer().opacity(1, 0.5),
+        ref_cs_tokenizer().y(100, 0.5),
+        ref_cs_main().y(1000, 0.5),
+        ref_cs_main().opacity(0, 0.5),
+    )
+
+    yield* waitFor(1)
+
+
+
+    // 13
+
+    yield* ref_cs_tokenizer().code().code(code_tokenizer_2.replace(/\t/g, "    "), 0.5)
+
+    yield* waitFor(1)
+
+
+
+    // 14
+
+    ref_cs_token().y(0)
+    ref_cs_token().x(-400)
+    yield* all(
+        ref_cs_token().opacity(1, 0.5),
+        ref_cs_token().y(100, 0.5),
+        ref_cs_tokenizer().y(1000, 0.5),
+        ref_cs_tokenizer().opacity(0, 0.5),
+    )
+
+    yield* waitFor(1)
+
+
+
+    // 15
+
+    yield* ref_cs_token().code().code(code_token_2.replace(/\t/g, "    "), 0.5)
+
+    yield* waitFor(1)
+
+
+
+    // 16
+
+    yield* ref_nasm_result_1().code().code(code_result_3.replace(/\t/g, "    "), 0.5)
+
+    yield* waitFor(1)
+
+
+    // 17
+
+    yield* ref_nasm_result_1().code().code.replace(word(12, 13, 'msg_first'.length), 'msg_second', 0.6);
+    yield* ref_nasm_result_1().code().code.replace(word(12, 13, 'msg_second'.length), 'msg_third', 0.6);
+
+
+
     // Fin
 
     yield* all(
@@ -337,5 +464,6 @@ _start:
         ref_arrow2().opacity(0, 1),
         ref_cs_main().opacity(0, 1),
         ref_nasm_result_1().opacity(0, 1),
+        ref_cs_token().opacity(0, 1),
     )
 });

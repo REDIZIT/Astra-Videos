@@ -22,7 +22,7 @@ value { Comment | Keyword | ControlFlowKeyword | Bool | Null | Number | String |
 
 	whitespace { $[ \n\r\t] }
 
-	Identifier { "Exception" | "List" | "Tokenizer" | "Token_Print" | "Console" | ("Token" ("\n" | ">" | " ")) | "StringBuilder" | "Generator"}
+	Identifier { "Exception" | "List" | "Tokenizer" | "Token_Print" | "Console" | ("Token" ("\n" | ">" | " ")) | "StringBuilder" | "Generator" | "pointer"}
 
 	FunctionName { "TokenizeLine" | "Trim" | "Split" | "Add" | " Tokenize(" | "Generate" | "WriteLine" | "Main" | "Compile" | "Tokenize" | "AppendLine" | "ToString"}
 
