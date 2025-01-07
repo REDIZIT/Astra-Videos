@@ -4,7 +4,7 @@ value { Comment | Keyword | ControlFlowKeyword | Bool | Null | Number | String |
 
 @tokens {
 	Comment { "//" char* | "/*" (whitespace* char*)* "*/" }
-	Keyword { "class" | "abstract" | "public" | "private" | "override" | "static" | "new" }
+	Keyword { "class" | "abstract" | "public" | "private" | "override" | "static" | "new" | "void" }
 	ControlFlowKeyword {  "return" | "if" | "else" | "for" | "while" | "throw" }
 
 	Bool  { "true" | "false" }
@@ -17,14 +17,14 @@ value { Comment | Keyword | ControlFlowKeyword | Bool | Null | Number | String |
 	frac { '.' @digit+ }
 	exp  { $[eE] $[+\-]? @digit+ }
 
-	String { '"' char* '"' | '@"' (whitespace* char*)* '"'}
+	String { '"' char* '"' | '@"' (whitespace* char*)* '"' | '"' "\\n" '"' }
 	char { $[\u{20}\u{21}\u{23}-\u{5b}\u{5d}-\u{10ffff}] }
 
 	whitespace { $[ \n\r\t] }
 
-	Identifier { "Exception" | "List" | "Tokenizer"  | "Token" | "Token_Print"}
+	Identifier { "Exception" | "List" | "Tokenizer" | "Token_Print" | "Console" | ("Token" ("\n" | ">" | " ")) | "StringBuilder" | "Generator"}
 
-	FunctionName { "TokenizeLine" | "Trim" | "Add" | " Tokenize(" | "Generate" }
+	FunctionName { "TokenizeLine" | "Trim" | "Split" | "Add" | " Tokenize(" | "Generate" | "WriteLine" | "Main" | "Compile" | "Tokenize" | "AppendLine" | "ToString"}
 
 	"{" "}" "[" "]" "," ":"
 }

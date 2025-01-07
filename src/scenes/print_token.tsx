@@ -12,7 +12,7 @@ export default makeScene2D(function* (view) {
     const code_asm = CODE`mov rax, 1
 mov rdi, 1
 mov rsi, msg
-mov rdx, 13
+mov rdx, 14
 syscall`
 
     const ref_arrow = createRef<Spline>()
@@ -25,6 +25,9 @@ syscall`
 
     const ref_cs_token = createRef<CodeBlock>()
     const ref_cs_tokenizer = createRef<CodeBlock>()
+    const ref_cs_main = createRef<CodeBlock>()
+    const ref_cs_generator = createRef<CodeBlock>()
+    const ref_nasm_result_1 = createRef<CodeBlock>()
 
     const code_cs_token = `public abstract class Token
 {
@@ -38,7 +41,7 @@ public class Token_Print : Token
 		return @"mov rax, 1
 mov rdi, 1
 mov rsi, msg
-mov rdx, 13
+mov rdx, 14
 syscall
 ";
 	}
@@ -48,13 +51,12 @@ syscall
 {
 	public static List<Token> Tokenize(string text)
 	{
-		List<Token> tokens = new List<Token>();
+		List<Token> tokens = new();
 		
 		string[] lines = text.Split("\\n");
 		for (int i = 0; i < lines.Length; i++)
 		{
-			string line = lines[i].Trim();
-			Token token = TokenizeLine(line);
+			Token token = TokenizeLine(lines[i]);
 			tokens.Add(token);
 		}
 		
@@ -67,6 +69,97 @@ syscall
 		throw new Exception("Failed to tokenize line: '" + line + "'");
 	}
 }`
+
+    const code_cs_main = `public static string source = "print";
+
+public static void Main()
+{
+	string asm = Compile(source);
+	Console.WriteLine(asm);
+}
+	
+public static string Compile(string source)
+{
+	List<Token> tokens = Tokenizer.Tokenize(source);
+}`
+
+    const code_cs_generator = `public static class Generator
+{
+	public static string Generate(List<Token> tokens)
+	{
+		StringBuilder b = new();
+		
+		for (int i = 0; i < tokens.Count; i++)
+		{
+			Token token = tokens[i];
+			string asm = token.Generate();
+			b.AppendLine(asm);
+		}
+		
+		return b.ToString();
+	}
+}`
+
+    const code_cs_main_2 = `public static string source = "print";
+
+public static void Main()
+{
+	string asm = Compile(source);
+	Console.WriteLine(asm);
+}
+	
+public static string Compile(string source)
+{
+	List<Token> tokens = Tokenizer.Tokenize(source);
+	string asm = Generator.Generate(tokens);
+	return asm;
+}`
+
+    const code_result_1 = `mov rax, 1
+mov rdi, 1
+mov rsi, msg
+mov rdx, 14
+syscall`
+
+
+    const code_cs_main_3 = `public static string source = "print";
+
+public static string header = @"section .data
+	msg db ""Example string"", 0
+
+section .bss
+	buffer resb 32
+
+section .text
+_start:
+";
+
+public static void Main()
+{
+	string asm = Compile(source);
+	Console.WriteLine(header + asm);
+}
+	
+public static string Compile(string source)
+{
+	List<Token> tokens = Tokenizer.Tokenize(source);
+	string asm = Generator.Generate(tokens);
+	return asm;
+}`
+
+    const code_result_2 = `section .data
+	msg db "Example string", 0
+
+section .bss
+	buffer resb 32
+
+section .text
+_start:
+	mov rax, 1
+	mov rdi, 1
+	mov rsi, msg
+	mov rdx, 14
+	syscall`
 
 
     view.add(
@@ -81,6 +174,9 @@ syscall
             <Layout ref={layout_2}>
                 <CodeBlock ref={ref_cs_token} codeContent={code_cs_token} extension="c#" />
                 <CodeBlock ref={ref_cs_tokenizer} codeContent={code_cs_tokenizer} extension="c#" />
+                <CodeBlock ref={ref_cs_main} codeContent={code_cs_main} extension="c#" />
+                <CodeBlock ref={ref_cs_generator} codeContent={code_cs_generator} extension="c#" />
+                <CodeBlock ref={ref_nasm_result_1} codeContent={code_result_1} extension="nasm" minWidth={240} />
             </Layout>
         </>
        
@@ -97,6 +193,9 @@ syscall
     ref_arrow2().opacity(0)
     ref_cs_token().opacity(0)
     ref_cs_tokenizer().opacity(0)
+    ref_cs_main().opacity(0)
+    ref_cs_generator().opacity(0)
+    ref_nasm_result_1().opacity(0)
 
     yield* waitFor(1)
 
@@ -150,13 +249,93 @@ syscall
     // 5
 
     ref_cs_tokenizer().y(1000)
-    ref_cs_tokenizer().x(-400)
+    ref_cs_tokenizer().x(-360)
     yield* all(
         layout_1().y(-400, 0.5),
         ref_cs_tokenizer().y(100, 0.5),
         ref_cs_tokenizer().opacity(1, 0.5),
-        ref_cs_token().x(400, 0.5),
+        ref_cs_token().x(480, 0.5),
     )
 
     yield* waitFor(1)
+
+
+
+    // 6
+
+    ref_cs_main().y(-100)
+    ref_cs_main().x(ref_cs_tokenizer().x)
+    yield* all(
+        ref_cs_main().opacity(1, 0.5),
+        ref_cs_main().y(100, 0.5),
+        ref_cs_tokenizer().y(1000, 0.5),
+        ref_cs_tokenizer().opacity(0, 0.5),
+    )
+
+    yield* waitFor(1)
+
+
+
+    // 7
+
+    ref_cs_generator().y(-100)
+    ref_cs_generator().x(ref_cs_token().x)
+    yield* all(
+        ref_cs_generator().opacity(1, 0.5),
+        ref_cs_generator().y(100, 0.5),
+        ref_cs_token().y(1000, 0.5),
+        ref_cs_token().opacity(0, 0.5),
+    )
+
+    yield* waitFor(1)
+
+
+
+    // 8
+    yield* ref_cs_main().code().code(code_cs_main_2.replace(/\t/g, "    "), 0.5)
+
+    yield* waitFor(1)
+
+
+
+    // 9
+
+    ref_nasm_result_1().y(0)
+    ref_nasm_result_1().x(ref_cs_generator().x)
+    yield* all(
+        ref_nasm_result_1().opacity(1, 0.5),
+        ref_nasm_result_1().y(100, 0.5),
+        ref_cs_generator().y(1000, 0.5),
+        ref_cs_generator().opacity(0, 0.5),
+    )
+
+    yield* waitFor(1)
+
+
+
+    // 10
+    yield* ref_cs_main().code().code(code_cs_main_3.replace(/\t/g, "    "), 0.5)
+
+    yield* waitFor(1)
+
+
+
+    // 11
+    yield* ref_nasm_result_1().code().code(code_result_2.replace(/\t/g, "    "), 0.5)
+
+    yield* waitFor(1)
+
+
+
+    // Fin
+
+    yield* all(
+        ref_print().opacity(0, 1),
+        ref_cs().opacity(0, 1),
+        ref_asm().opacity(0, 1),
+        ref_arrow().opacity(0, 1),
+        ref_arrow2().opacity(0, 1),
+        ref_cs_main().opacity(0, 1),
+        ref_nasm_result_1().opacity(0, 1),
+    )
 });
