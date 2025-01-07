@@ -1,4 +1,4 @@
-import { CODE, makeScene2D, Layout, Spline } from '@motion-canvas/2d';
+import { CODE, makeScene2D, Layout, Spline, Txt } from '@motion-canvas/2d';
 import { all, chain, createRef, delay, easeInCubic, waitFor } from '@motion-canvas/core';
 import { CodeBlock } from '../components/codeblock';
 
@@ -25,33 +25,28 @@ syscall`
 
     const ref_cs_token = createRef<CodeBlock>()
 
-    const code_cs_token = CODE`/*2
-abc
-bcd
-*/
-public abstract class Token
+    const code_cs_token = `public abstract class Token
 {
-    int myvalue = 123;
-
-	public abstract string Generate();
+\tpublic abstract string Generate();
 }
-// 123
 public class Token_Print : Token
 {
-	public override string Generate()
-	{
-		return @"mov rax, 1
+\tpublic override string Generate()
+\t{
+\t\treturn @"mov rax, 1
 mov rdi, 1
 mov rsi, msg
 mov rdx, 13, true, ffalse
 syscall
 ";
-	}
+\t}
 }`
+
 
     view.add(
         <>
             <Layout ref={layout_1}>
+                <Txt text={code_cs_token.toString()} fontSize={24} fill={"white"} columnGap={999 } />
                 <CodeBlock ref={ref_print} codeContent={CODE`print`} extension="astra" width={160} />
                 <CodeBlock ref={ref_asm} codeContent={code_asm} extension="nasm" width={240} />
                 <CodeBlock ref={ref_cs} codeContent={CODE`Token_Print`} extension="c#" width={220} />
@@ -65,6 +60,8 @@ syscall
        
     )
 
+    
+
     // 1
 
     ref_print().opacity(0)
@@ -73,6 +70,8 @@ syscall
     ref_arrow().opacity(0)
     ref_arrow2().opacity(0)
     ref_cs_token().opacity(0)
+
+    yield* waitFor(1)
 
     yield* ref_print().opacity(1, 0.2)
 

@@ -3,19 +3,16 @@ import {LRParser} from "@lezer/lr"
 import {jsonHighlighting} from "./highlight"
 export const parser = LRParser.deserialize({
   version: 14,
-  states: "hOVQPOOOOQO'#Ce'#CeOOQO'#Ck'#CkQOQPOO",
-  stateData: "w~O^OS~OQQORQOSQOTQOUQOVQOWQOYQOZQO`PO~O",
-  goto: "g`PPPPPPPPPaPPPPPdRQORRO",
-  nodeNames: "⚠ JsonText Comment Keyword ControlFlowKeyword True False Null Number String TypeName Identifier",
-  maxTerm: 16,
-  nodeProps: [
-    ["isolate", 9,""]
-  ],
+  states: "bOVQPOOOOQO'#Cj'#CjQOQPOO",
+  stateData: "t~O]OS~OQPORPOSPOTPOUPOVPOWPOXPOYPO~O",
+  goto: "c_PPPPPPPPPPPPPP`RQO",
+  nodeNames: "⚠ Program Comment Keyword ControlFlowKeyword Bool Null Number String TypeName Identifier",
+  maxTerm: 14,
   propSources: [jsonHighlighting],
   skippedNodes: [0],
   repeatNodeCount: 0,
-  tokenData: ":|~RoXY#SYZ#S]^#Spq#Xrs$z}!O'd!P!Q)^!Q!R'm!R![({!b!c0d!c!}3W#R#S3W#T#U3]#U#V3W#V#W4`#W#X3W#X#Y4z#Y#Z5e#Z#]3W#]#^6_#^#b3W#b#c6g#c#d7Q#d#e8O#e#f3W#f#g9]#g#h3W#h#i9}#i#k3W#k#l:h#l#o3W~#XO^~~#^R^~#Y#Z#g#]#^$U#g#h$[~#jP#`#a#m~#pP#c#d#s~#vP#T#U#y~#|P#h#i$P~$UOY~~$XP#b#c#y~$_P#h#i$b~$eP#f#g$h~$kP#]#^$n~$qP#b#c$t~$wP#Z#[$P~$}Wpq$zqr$zrs%gs#O$z#O#P%l#P;'S$z;'S;=`'^<%lO$z~%lO`~~%oXrs$z!P!Q$z#O#P$z#U#V$z#Y#Z$z#b#c$z#f#g$z#h#i$z#i#j&[~&_R!Q![&h!c!i&h#T#Z&h~&kR!Q![&t!c!i&t#T#Z&t~&wR!Q!['Q!c!i'Q#T#Z'Q~'TR!Q![$z!c!i$z#T#Z$z~'aP;=`<%l$z~'gQ!Q!R'm!R![({~'rRW~!O!P'{!g!h(a#X#Y(a~(OP!Q![(R~(WRW~!Q![(R!g!h(a#X#Y(a~(dR{|(m}!O(m!Q![(s~(pP!Q![(s~(xPW~!Q![(s~)QSW~!O!P'{!Q![({!g!h(a#X#Y(a~)aQz{)g!P!Q.Q~)j[XY)gYZ)g]^)gpq)gqr)gsz)gz{*`{#O)g#O#P,Y#P;'S)g;'S;=`-z<%lO)g~*c^XY)gYZ)g]^)gpq)gqr)gsz)gz{*`{!P)g!P!Q+_!Q#O)g#O#P,Y#P;'S)g;'S;=`-z<%lO)g~+d[Q~XY)gYZ)g]^)gpq)gqr)gsz)gz{*`{#O)g#O#P,Y#P;'S)g;'S;=`-z<%lO)g~,]Xrs)g!P!Q)g#O#P)g#U#V)g#Y#Z)g#b#c)g#f#g)g#h#i)g#i#j,x~,{R!Q![-U!c!i-U#T#Z-U~-XR!Q![-b!c!i-b#T#Z-b~-eR!Q![-n!c!i-n#T#Z-n~-qR!Q![)g!c!i)g#T#Z)g~-}P;=`<%l)g~.VVQ~pq.Qqr.Qs#O.Q#O#P.l#P;'S.Q;'S;=`0^<%lO.Q~.oXrs.Q!P!Q.Q#O#P.Q#U#V.Q#Y#Z.Q#b#c.Q#f#g.Q#h#i.Q#i#j/[~/_R!Q![/h!c!i/h#T#Z/h~/kR!Q![/t!c!i/t#T#Z/t~/wR!Q![0Q!c!i0Q#T#Z0Q~0TR!Q![.Q!c!i.Q#T#Z.Q~0aP;=`<%l.Q~0gPrs0j~0mZXY0jYZ0j]^0jpq0jqr0jrs%gs#O0j#O#P1`#P;'S0j;'S;=`3Q<%lO0j~1cXrs0j!P!Q0j#O#P0j#U#V0j#Y#Z0j#b#c0j#f#g0j#h#i0j#i#j2O~2RR!Q![2[!c!i2[#T#Z2[~2_R!Q![2h!c!i2h#T#Z2h~2kR!Q![2t!c!i2t#T#Z2t~2wR!Q![0j!c!i0j#T#Z0j~3TP;=`<%l0j~3]OZ~~3bPZ~#U#V3e~3hP#g#h3k~3nP#h#i3q~3tP#f#g3w~3zP#T#U3}~4QP#V#W4T~4WP#h#i4Z~4`OR~~4ePZ~#`#a4h~4kP#T#U4n~4qP#g#h4t~4wP#g#h4Z~5PPZ~#`#a5S~5VP#g#h5Y~5]P#X#Y5`~5eOS~~5jQZ~#T#U5p#c#d6X~5sP#`#a5v~5yP#g#h5|~6PP#X#Y6S~6XOU~~6[P#f#g5`~6dPZ~#Y#Z5`~6lPZ~#i#j6o~6rP#`#a6u~6xP#`#a6{~7QOV~~7VPZ~#j#k7Y~7]P#X#Y7`~7cP#f#g7f~7iP#f#g7l~7oP#]#^7r~7uP#W#X7x~7{P#X#Y4Z~8TQZ~#f#g8Z#i#j8s~8^P#]#^8a~8dP#j#k8g~8jP#T#U8m~8pP#h#i7x~8vP#U#V8y~8|P#`#a9P~9SP#]#^9V~9YP#V#W4Z~9bPZ~#X#Y9e~9hP#h#i9k~9nP#i#j9q~9tP#f#g9w~9zP#b#c5`~:SPZ~#f#g:V~:YP#i#j:]~:`P#X#Y:c~:hOT~~:mPZ~#[#]:p~:sP#]#^:v~:yP#`#a5Y",
+  tokenData: "3i~RoXY#SYZ#S]^#Spq#Xrs$z}!O%o!P!Q'i!Q!R%x!R!['W!b!c+P!c!},O#R#S,O#T#U,T#U#V,O#V#W-W#W#X,O#X#Y-r#Y#Z.]#Z#],O#]#^/V#^#b,O#b#c/_#c#d/x#d#e0v#e#f,O#f#g2T#g#h,O#h#i2u#i#k,O#k#l3T#l#o,O~#XO]~~#^R]~#Y#Z#g#]#^$U#g#h$[~#jP#`#a#m~#pP#c#d#s~#vP#T#U#y~#|P#h#i$P~$UOX~~$XP#b#c#y~$_P#h#i$b~$eP#f#g$h~$kP#]#^$n~$qP#b#c$t~$wP#Z#[$P~$}Vpq$zqr$zrs%ds#O$z#P;'S$z;'S;=`%i<%lO$z~%iOW~~%lP;=`<%l$z~%rQ!Q!R%x!R!['W~%}RV~!O!P&W!g!h&l#X#Y&l~&ZP!Q![&^~&cRV~!Q![&^!g!h&l#X#Y&l~&oR{|&x}!O&x!Q!['O~&{P!Q!['O~'TPV~!Q!['O~']SV~!O!P&W!Q!['W!g!h&l#X#Y&l~'lQz{'r!P!Q*b~'uZXY'rYZ'r]^'rpq'rqr'rsz'rz{(h{#O'r#P;'S'r;'S;=`*[<%lO'r~(k]XY'rYZ'r]^'rpq'rqr'rsz'rz{(h{!P'r!P!Q)d!Q#O'r#P;'S'r;'S;=`*[<%lO'r~)iZQ~XY'rYZ'r]^'rpq'rqr'rsz'rz{(h{#O'r#P;'S'r;'S;=`*[<%lO'r~*_P;=`<%l'r~*gUQ~pq*bqr*bs#O*b#P;'S*b;'S;=`*y<%lO*b~*|P;=`<%l*b~+SPrs+V~+YYXY+VYZ+V]^+Vpq+Vqr+Vrs%ds#O+V#P;'S+V;'S;=`+x<%lO+V~+{P;=`<%l+V~,TOY~~,YPY~#U#V,]~,`P#g#h,c~,fP#h#i,i~,lP#f#g,o~,rP#T#U,u~,xP#V#W,{~-OP#h#i-R~-WOR~~-]PY~#`#a-`~-cP#T#U-f~-iP#g#h-l~-oP#g#h-R~-wPY~#`#a-z~-}P#g#h.Q~.TP#X#Y.W~.]OS~~.bQY~#T#U.h#c#d/P~.kP#`#a.n~.qP#g#h.t~.wP#X#Y.z~/POT~~/SP#f#g.W~/[PY~#Y#Z.W~/dPY~#i#j/g~/jP#`#a/m~/pP#`#a/s~/xOU~~/}PY~#j#k0Q~0TP#X#Y0W~0ZP#f#g0^~0aP#f#g0d~0gP#]#^0j~0mP#W#X0p~0sP#X#Y-R~0{QY~#f#g1R#i#j1k~1UP#]#^1X~1[P#j#k1_~1bP#T#U1e~1hP#h#i0p~1nP#U#V1q~1tP#`#a1w~1zP#]#^1}~2QP#V#W-R~2YPY~#X#Y2]~2`P#h#i2c~2fP#i#j2i~2lP#f#g2o~2rP#b#c.W~2zPY~#f#g2}~3QP#i#j.t~3YPY~#[#]3]~3`P#]#^3c~3fP#`#a.Q",
   tokenizers: [0],
-  topRules: {"JsonText":[0,1]},
+  topRules: {"Program":[0,1]},
   tokenPrec: 0
 })

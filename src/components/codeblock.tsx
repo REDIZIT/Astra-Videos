@@ -1,12 +1,32 @@
-import { Code, CodeTag, Layout, LezerHighlighter, Rect, RectProps, Txt, signal } from "@motion-canvas/2d";
-import { Reference, SignalValue, SimpleSignal, createRef } from "@motion-canvas/core";
+import { CODE, parseCodeScope, Code, CodeTag, Layout, LezerHighlighter, Rect, RectProps, Txt, signal } from "@motion-canvas/2d";
+import { Reference, SignalValue, SimpleSignal, createRef, useLogger } from "@motion-canvas/core";
 //import { parser } from '@lezer/java';
 import { parser } from '../parser/lang';
 import { colors } from '../utils/colorscheme'
+import { createLogger } from "vite";
 
 export interface CodeBlockProps extends RectProps {
     extension: SignalValue<string>;
     codeContent: SignalValue<CodeTag[]>;
+}
+
+export function ToCode(
+    strings: string,
+    ...tags: CodeTag[]
+): CodeTag[] {
+    const result: CodeTag[] = [];
+
+    result.push(strings);
+    const tag = tags[0];
+    if (tag !== undefined) {
+        if (Array.isArray(tag)) {
+            result.push(...tag);
+        } else {
+            result.push(tag);
+        }
+    }
+
+    return result;
 }
 
 export class CodeBlock extends Rect {
@@ -32,9 +52,10 @@ export class CodeBlock extends Rect {
             direction: "column",
         });
 
-        const code = createRef<Code>();
+        const ref_code = createRef<Code>();
 
-        this.code = code;
+        this.code = ref_code;
+
 
         let highlighter = null
         if (this.extension() == "c#") {
@@ -47,12 +68,13 @@ export class CodeBlock extends Rect {
                 <Txt text={this.extension} fill="#aaa" />
             </Rect>
             <Code
-                ref={code}
-                code={this.codeContent}
+                ref={ref_code}
                 fill="#eee"
                 fontSize={22}
                 highlighter={highlighter}
             />
         </>);
+
+        ref_code().code(this.codeContent().toString().replace(/\t/g, '    '))
     }
 }

@@ -14,7 +14,7 @@ export const catpuccinColors = generateColorSchemeFromBase16([
     "#fab387", // 0x9 peach
     "#d69d85", // 0xA yellow
     "#4ec9b0", // 0xB green
-    "#94e2d5", // 0xC teal
+    "#57a64a", // 0xC teal
     "#569cd6", // 0xD blue
     "#cba6f7", // 0xE mauve
     "#d8a0df", // 0xF flamingo
@@ -46,7 +46,7 @@ export function generateCodeStyleFromBase16(scheme: string[]): HighlightStyle {
         [
             {
                 tag: [tags.comment],
-                color: scheme[0x3],
+                color: scheme[0xC],
                 fontStyle: "italic",
             },
             {

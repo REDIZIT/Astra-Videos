@@ -3,7 +3,7 @@ import {styleTags, tags as t} from "@lezer/highlight"
 export const jsonHighlighting = styleTags({
   String: t.string,
   Number: t.number,
-  "True False": t.bool,
+  Bool: t.bool,
   PropertyName: t.propertyName,
   Null: t.null,
   ", :": t.separator,
@@ -13,5 +13,6 @@ export const jsonHighlighting = styleTags({
   TypeName: t.typeName,
   Identifier: t.className,
   Keyword: t.keyword,
-  ControlFlowKeyword: t.controlKeyword
+  ControlFlowKeyword: t.controlKeyword,
+  FunctionName: t.comment,
 })
