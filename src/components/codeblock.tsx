@@ -1,9 +1,8 @@
 import { CODE, parseCodeScope, Code, CodeTag, Layout, LezerHighlighter, Rect, RectProps, Txt, signal } from "@motion-canvas/2d";
 import { Reference, SignalValue, SimpleSignal, createRef, useLogger } from "@motion-canvas/core";
-//import { parser } from '@lezer/java';
-import { parser } from '../parser/lang';
+import { parser as parser_cs } from '../parser/cs/lang';
+import { parser as parser_nasm } from '../parser/nasm/nasm';
 import { colors } from '../utils/colorscheme'
-import { createLogger } from "vite";
 
 export interface CodeBlockProps extends RectProps {
     extension: SignalValue<string>;
@@ -59,7 +58,10 @@ export class CodeBlock extends Rect {
 
         let highlighter = null
         if (this.extension() == "c#") {
-            highlighter = new LezerHighlighter(parser, colors.codeStyle)
+            highlighter = new LezerHighlighter(parser_cs, colors.codeStyle)
+        }
+        else if (this.extension().endsWith("asm") || this.extension() == "gas") {
+            highlighter = new LezerHighlighter(parser_nasm, colors.codeStyle)
         }
 
         this.add(<>

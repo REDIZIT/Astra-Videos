@@ -27,26 +27,26 @@ syscall`
 
     const code_cs_token = `public abstract class Token
 {
-\tpublic abstract string Generate();
+	public abstract string Generate();
 }
+
 public class Token_Print : Token
 {
-\tpublic override string Generate()
-\t{
-\t\treturn @"mov rax, 1
+	public override string Generate()
+	{
+		return @"mov rax, 1
 mov rdi, 1
 mov rsi, msg
-mov rdx, 13, true, ffalse
+mov rdx, 13
 syscall
 ";
-\t}
+	}
 }`
 
 
     view.add(
         <>
             <Layout ref={layout_1}>
-                <Txt text={code_cs_token.toString()} fontSize={24} fill={"white"} columnGap={999 } />
                 <CodeBlock ref={ref_print} codeContent={CODE`print`} extension="astra" width={160} />
                 <CodeBlock ref={ref_asm} codeContent={code_asm} extension="nasm" width={240} />
                 <CodeBlock ref={ref_cs} codeContent={CODE`Token_Print`} extension="c#" width={220} />

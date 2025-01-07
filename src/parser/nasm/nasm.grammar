@@ -1,0 +1,30 @@
+@top Program { value }
+
+value { Comment | Keyword | ControlFlowKeyword | Number | String | Register | TypeName }
+
+
+
+@tokens {
+	Comment { ";" char* }
+	Keyword { ("global" | "mov" | "xor") " " }
+	ControlFlowKeyword { "call" | "ret" | "syscall" | $[a-zA-Z_]* ":" | "section ." char* }
+
+	Register { ($[re] $[abcds] $[xidl]) (" " | "," | "\n") }
+	TypeName { "db " }
+
+	Number { '-'? int frac? exp?  }
+	int  { '0' | $[1-9] @digit* }
+	frac { '.' @digit+ }
+	exp  { $[eE] $[+\-]? @digit+ }
+
+	String { '"' char* '"' | '@"' (" "* char*)* '"'}
+	char { $[\u{20}\u{21}\u{23}-\u{5b}\u{5d}-\u{10ffff}] }
+
+	Identifier { " " (@asciiLetter @asciiLetter*) }
+
+	"{" "}" "[" "]" "," ":"
+}
+
+@external propSource jsonHighlighting from "./highlight"
+
+@detectDelim

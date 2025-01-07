@@ -9,7 +9,7 @@ export const catpuccinColors = generateColorSchemeFromBase16([
     "#585b70", // 0x4 surface2
     "#cdd6f4", // 0x5 text
     "#f5e0dc", // 0x6 rosewater
-    "#b4befe", // 0x7 lavender
+    "#9cdcfe", // 0x7 
     "#f38ba8", // 0x8 red
     "#fab387", // 0x9 peach
     "#d69d85", // 0xA yellow
@@ -67,7 +67,7 @@ export function generateCodeStyleFromBase16(scheme: string[]): HighlightStyle {
             },
             {
                 tag: [tags.variableName],
-                color: scheme[0x8]
+                color: scheme[0x7]
             },
             {
                 // string interpolation braces

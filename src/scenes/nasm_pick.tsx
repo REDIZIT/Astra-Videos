@@ -92,7 +92,7 @@ END main`;
 
 	const ref_layout = createRef<Layout>();
 
-	view.add(<Layout ref={ref_layout}>
+	view.add(<Layout ref={ref_layout} scale={0.915}>
 		<CodeBlock ref={ref_nasm} extension="nasm" codeContent={nasm} offset={[-1, 0]} height={480} />
 		<CodeBlock ref={ref_masm} extension="masm" codeContent={masm} offset={[-1, 0]} height={480} />
 		<CodeBlock ref={ref_fasm} extension="fasm" codeContent={fasm} offset={[-1, 0]} height={480} />
@@ -101,7 +101,7 @@ END main`;
 	</Layout>);
 
 	const gap = 16;
-	const start_y = 800;
+	const start_y = 1000;
 	const delay = 0.15;
         
 	ref_nasm().y(start_y);
@@ -111,7 +111,7 @@ END main`;
 	ref_tasm().y(start_y);
 
 
-	ref_nasm().x(-960 + gap + 8);
+	ref_nasm().x(-1046 + gap + 8);
 	ref_masm().x(ref_nasm().x() + ref_nasm().width() + gap);
 	ref_fasm().x(ref_masm().x() + ref_masm().width() + gap);
 	ref_gas().x(ref_fasm().x() + ref_fasm().width() + gap);
