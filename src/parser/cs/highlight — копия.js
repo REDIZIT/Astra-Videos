@@ -14,5 +14,5 @@ export const jsonHighlighting = styleTags({
   Identifier: t.className,
   Keyword: t.keyword,
   ControlFlowKeyword: t.controlKeyword,
-  FunctionName: t.tagName,
+  FunctionName: t.comment,
 })

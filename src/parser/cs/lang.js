@@ -3,15 +3,15 @@ import {LRParser} from "@lezer/lr"
 import {jsonHighlighting} from "./highlight"
 export const parser = LRParser.deserialize({
   version: 14,
-  states: "bOVQPOOOOQO'#Cj'#CjQOQPOO",
-  stateData: "t~O]OS~OQPORPOSPOTPOUPOVPOWPOXPOYPO~O",
-  goto: "c_PPPPPPPPPPPPPP`RQO",
-  nodeNames: "⚠ Program Comment Keyword ControlFlowKeyword Bool Null Number String TypeName Identifier",
-  maxTerm: 14,
+  states: "bOVQPOOOOQO'#Ck'#CkQOQPOO",
+  stateData: "w~O^OS~OQPORPOSPOTPOUPOVPOWPOXPOYPOZPO~O",
+  goto: "d`PPPPPPPPPPPPPPPaRQO",
+  nodeNames: "⚠ Program Comment Keyword ControlFlowKeyword Bool Null Number String TypeName FunctionName Identifier",
+  maxTerm: 15,
   propSources: [jsonHighlighting],
   skippedNodes: [0],
   repeatNodeCount: 0,
-  tokenData: "3i~RoXY#SYZ#S]^#Spq#Xrs$z}!O%o!P!Q'i!Q!R%x!R!['W!b!c+P!c!},O#R#S,O#T#U,T#U#V,O#V#W-W#W#X,O#X#Y-r#Y#Z.]#Z#],O#]#^/V#^#b,O#b#c/_#c#d/x#d#e0v#e#f,O#f#g2T#g#h,O#h#i2u#i#k,O#k#l3T#l#o,O~#XO]~~#^R]~#Y#Z#g#]#^$U#g#h$[~#jP#`#a#m~#pP#c#d#s~#vP#T#U#y~#|P#h#i$P~$UOX~~$XP#b#c#y~$_P#h#i$b~$eP#f#g$h~$kP#]#^$n~$qP#b#c$t~$wP#Z#[$P~$}Vpq$zqr$zrs%ds#O$z#P;'S$z;'S;=`%i<%lO$z~%iOW~~%lP;=`<%l$z~%rQ!Q!R%x!R!['W~%}RV~!O!P&W!g!h&l#X#Y&l~&ZP!Q![&^~&cRV~!Q![&^!g!h&l#X#Y&l~&oR{|&x}!O&x!Q!['O~&{P!Q!['O~'TPV~!Q!['O~']SV~!O!P&W!Q!['W!g!h&l#X#Y&l~'lQz{'r!P!Q*b~'uZXY'rYZ'r]^'rpq'rqr'rsz'rz{(h{#O'r#P;'S'r;'S;=`*[<%lO'r~(k]XY'rYZ'r]^'rpq'rqr'rsz'rz{(h{!P'r!P!Q)d!Q#O'r#P;'S'r;'S;=`*[<%lO'r~)iZQ~XY'rYZ'r]^'rpq'rqr'rsz'rz{(h{#O'r#P;'S'r;'S;=`*[<%lO'r~*_P;=`<%l'r~*gUQ~pq*bqr*bs#O*b#P;'S*b;'S;=`*y<%lO*b~*|P;=`<%l*b~+SPrs+V~+YYXY+VYZ+V]^+Vpq+Vqr+Vrs%ds#O+V#P;'S+V;'S;=`+x<%lO+V~+{P;=`<%l+V~,TOY~~,YPY~#U#V,]~,`P#g#h,c~,fP#h#i,i~,lP#f#g,o~,rP#T#U,u~,xP#V#W,{~-OP#h#i-R~-WOR~~-]PY~#`#a-`~-cP#T#U-f~-iP#g#h-l~-oP#g#h-R~-wPY~#`#a-z~-}P#g#h.Q~.TP#X#Y.W~.]OS~~.bQY~#T#U.h#c#d/P~.kP#`#a.n~.qP#g#h.t~.wP#X#Y.z~/POT~~/SP#f#g.W~/[PY~#Y#Z.W~/dPY~#i#j/g~/jP#`#a/m~/pP#`#a/s~/xOU~~/}PY~#j#k0Q~0TP#X#Y0W~0ZP#f#g0^~0aP#f#g0d~0gP#]#^0j~0mP#W#X0p~0sP#X#Y-R~0{QY~#f#g1R#i#j1k~1UP#]#^1X~1[P#j#k1_~1bP#T#U1e~1hP#h#i0p~1nP#U#V1q~1tP#`#a1w~1zP#]#^1}~2QP#V#W-R~2YPY~#X#Y2]~2`P#h#i2c~2fP#i#j2i~2lP#f#g2o~2rP#b#c.W~2zPY~#f#g2}~3QP#i#j.t~3YPY~#[#]3]~3`P#]#^3c~3fP#`#a.Q",
+  tokenData: "9f~RkXY!vYZ!v]^!vpq!{rs$[}!O%P!P!Q&y!Q!R%Y!R![&h!b!c*a!c!d+`!g!h+l!i!j,s!n!o-o!v!w.R#T#U0b#V#W1c#X#Y1{#Y#Z2d#]#^3v#b#c4P#c#d4q#d#e5m#f#g6x#g#h7h#h#i8a#k#l9S~!{O^~~#QP^~!v!w#T~#WP#c#d#Z~#^P#_#`#a~#dP#X#Y#g~#jP#b#c#m~#pP#]#^#s~#vP#n#o#y~#|P#X#Y$P~$SPxy$V~$[OY~~$_Vpq$[qr$[rs$ts#O$[#P;'S$[;'S;=`$y<%lO$[~$yOW~~$|P;=`<%l$[~%SQ!Q!R%Y!R![&h~%_RV~!O!P%h!g!h%|#X#Y%|~%kP!Q![%n~%sRV~!Q![%n!g!h%|#X#Y%|~&PR{|&Y}!O&Y!Q![&`~&]P!Q![&`~&ePV~!Q![&`~&mSV~!O!P%h!Q![&h!g!h%|#X#Y%|~&|Qz{'S!P!Q)r~'VZXY'SYZ'S]^'Spq'Sqr'Ssz'Sz{'x{#O'S#P;'S'S;'S;=`)l<%lO'S~'{]XY'SYZ'S]^'Spq'Sqr'Ssz'Sz{'x{!P'S!P!Q(t!Q#O'S#P;'S'S;'S;=`)l<%lO'S~(yZQ~XY'SYZ'S]^'Spq'Sqr'Ssz'Sz{'x{#O'S#P;'S'S;'S;=`)l<%lO'S~)oP;=`<%l'S~)wUQ~pq)rqr)rs#O)r#P;'S)r;'S;=`*Z<%lO)r~*^P;=`<%l)r~*dPrs*g~*jYXY*gYZ*g]^*gpq*gqr*grs$ts#O*g#P;'S*g;'S;=`+Y<%lO*g~+]P;=`<%l*g~+cP#W#X+f~+iP#W#X$V~+oP#l#m+r~+uP#V#W+x~+{P#X#Y,O~,RP#d#e,U~,XP#h#i,[~,_P#]#^,b~,eP#c#d,h~,kP#b#c,n~,sOZ~~,vP#X#Y,y~,|P#b#c-P~-SP#X#Y-V~-YP#f#g-]~-`P#T#U-c~-fP#h#i-i~-lP#X#Y$V~-rP#]#^-u~-xP#g#h-{~.OP#h#i,n~.UQ#c#d.[#f#g0U~._P#_#`.b~.eP#X#Y.h~.kP#b#c.n~.sQZ~#R#S.y#]#^/c~.|P!r!s/P~/SP#f#g/V~/YP#]#^/]~/`P#b#c-{~/fP#n#o/i~/lP#X#Y/o~/rQ!n!o/x#f#g,n~/{P#]#^0O~0RP#b#c-i~0XP#]#^0[~0_P#a#b$V~0eP#U#V0h~0kP#g#h0n~0qP#h#i0t~0wP#f#g0z~0}P#T#U1Q~1TP#V#W1W~1ZP#h#i1^~1cOR~~1fP#`#a1i~1lP#T#U1o~1rP#g#h1u~1xP#g#h1^~2OP#`#a2R~2UP#g#h2X~2[P#X#Y2_~2dOS~~2gR#T#U2p#`#a3X#c#d3p~2sP#`#a2v~2yP#g#h2|~3PP#X#Y3S~3XOT~~3[P#c#d3_~3bP#T#U3e~3hP#h#i3k~3pOX~~3sP#f#g2_~3yQ#Y#Z2_#b#c3e~4SQ#X#Y4Y#i#j4`~4]P#k#l1^~4cP#`#a4f~4iP#`#a4l~4qOU~~4tP#j#k4w~4zP#X#Y4}~5QP#f#g5T~5WP#f#g5Z~5^P#]#^5a~5dP#W#X5g~5jP#X#Y1^~5pQ#f#g5v#i#j6`~5yP#]#^5|~6PP#j#k6S~6VP#T#U6Y~6]P#h#i5g~6cP#U#V6f~6iP#`#a6l~6oP#]#^6r~6uP#V#W1^~6{P#X#Y7O~7RP#h#i7U~7XP#i#j7[~7_P#f#g7b~7eP#b#c2_~7kP#h#i7n~7qQ#T#U7w#f#g7}~7zP#h#i6l~8QP#]#^8T~8WP#b#c8Z~8^P#Z#[3k~8dQ#[#]8j#f#g8|~8mP#f#g8p~8sP#c#d8v~8yP#k#l2_~9PP#i#j2|~9VP#[#]9Y~9]P#]#^9`~9cP#`#a2X",
   tokenizers: [0],
   topRules: {"Program":[0,1]},
   tokenPrec: 0

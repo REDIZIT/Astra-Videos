@@ -1,16 +1,16 @@
 @top Program { value }
 
-value { Comment | Keyword | ControlFlowKeyword | Bool | Null | Number | String | TypeName | Identifier }
+value { Comment | Keyword | ControlFlowKeyword | Bool | Null | Number | String | TypeName | FunctionName | Identifier }
 
 @tokens {
 	Comment { "//" char* | "/*" (whitespace* char*)* "*/" }
-	Keyword { "class" | "abstract" | "public" | "private" | "override" }
-	ControlFlowKeyword {  "return" | "if" | "else" | "for" | "while" }
+	Keyword { "class" | "abstract" | "public" | "private" | "override" | "static" | "new" }
+	ControlFlowKeyword {  "return" | "if" | "else" | "for" | "while" | "throw" }
 
 	Bool  { "true" | "false" }
 	Null  { "null" }
 
-	TypeName { " " ("string" | "int" | "float") }
+	TypeName { "string" | "int" | "float" }
 
 	Number { '-'? int frac? exp?  }
 	int  { '0' | $[1-9] @digit* }
@@ -22,7 +22,9 @@ value { Comment | Keyword | ControlFlowKeyword | Bool | Null | Number | String |
 
 	whitespace { $[ \n\r\t] }
 
-	Identifier { $[a-zA-Z_] }
+	Identifier { "Exception" | "List" | "Tokenizer"  | "Token" | "Token_Print"}
+
+	FunctionName { "TokenizeLine" | "Trim" | "Add" | " Tokenize(" | "Generate" }
 
 	"{" "}" "[" "]" "," ":"
 }

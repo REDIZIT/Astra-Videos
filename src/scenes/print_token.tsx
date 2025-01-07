@@ -24,6 +24,7 @@ syscall`
     const layout_2 = createRef<Layout>()
 
     const ref_cs_token = createRef<CodeBlock>()
+    const ref_cs_tokenizer = createRef<CodeBlock>()
 
     const code_cs_token = `public abstract class Token
 {
@@ -43,6 +44,30 @@ syscall
 	}
 }`
 
+    const code_cs_tokenizer = `public static class Tokenizer 
+{
+	public static List<Token> Tokenize(string text)
+	{
+		List<Token> tokens = new List<Token>();
+		
+		string[] lines = text.Split("\\n");
+		for (int i = 0; i < lines.Length; i++)
+		{
+			string line = lines[i].Trim();
+			Token token = TokenizeLine(line);
+			tokens.Add(token);
+		}
+		
+		return tokens;
+	}
+	public static Token TokenizeLine(string line)
+	{
+		if (line == "print") return new Token_Print();
+		
+		throw new Exception("Failed to tokenize line: '" + line + "'");
+	}
+}`
+
 
     view.add(
         <>
@@ -55,6 +80,7 @@ syscall
             </Layout>
             <Layout ref={layout_2}>
                 <CodeBlock ref={ref_cs_token} codeContent={code_cs_token} extension="c#" />
+                <CodeBlock ref={ref_cs_tokenizer} codeContent={code_cs_tokenizer} extension="c#" />
             </Layout>
         </>
        
@@ -70,6 +96,7 @@ syscall
     ref_arrow().opacity(0)
     ref_arrow2().opacity(0)
     ref_cs_token().opacity(0)
+    ref_cs_tokenizer().opacity(0)
 
     yield* waitFor(1)
 
@@ -114,6 +141,21 @@ syscall
         layout_1().y(-300, 0.5),
         ref_cs_token().y(100, 0.5),
         ref_cs_token().opacity(1, 0.5),
+    )
+
+    yield* waitFor(1)
+
+
+
+    // 5
+
+    ref_cs_tokenizer().y(1000)
+    ref_cs_tokenizer().x(-400)
+    yield* all(
+        layout_1().y(-400, 0.5),
+        ref_cs_tokenizer().y(100, 0.5),
+        ref_cs_tokenizer().opacity(1, 0.5),
+        ref_cs_token().x(400, 0.5),
     )
 
     yield* waitFor(1)

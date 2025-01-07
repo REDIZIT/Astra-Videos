@@ -9,4 +9,5 @@ export const
   Number = 7,
   String = 8,
   TypeName = 9,
-  Identifier = 10
+  FunctionName = 10,
+  Identifier = 11

@@ -3,7 +3,7 @@ import { tags } from "@lezer/highlight"
 
 export const catpuccinColors = generateColorSchemeFromBase16([
     "#1e1e2e", // 0x0 base
-    "#181825", // 0x1 mantle
+    "#dcdcaa", // 0x1 yellow (function names)
     "#313244", // 0x2 surface0
     "#45475a", // 0x3 surface1
     "#585b70", // 0x4 surface2
@@ -12,7 +12,7 @@ export const catpuccinColors = generateColorSchemeFromBase16([
     "#9cdcfe", // 0x7 
     "#f38ba8", // 0x8 red
     "#fab387", // 0x9 peach
-    "#d69d85", // 0xA yellow
+    "#d69d85", // 0xA orange-yellow (strings)
     "#4ec9b0", // 0xB green
     "#57a64a", // 0xC teal
     "#569cd6", // 0xD blue
@@ -122,7 +122,7 @@ export function generateCodeStyleFromBase16(scheme: string[]): HighlightStyle {
             },
             {
                 tag: [tags.tagName],
-                color: scheme[0xF],
+                color: scheme[0x1],
             },
         ]
     )

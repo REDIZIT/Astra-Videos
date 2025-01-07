@@ -1,7 +1,9 @@
 import { CODE, parseCodeScope, Code, CodeTag, Layout, LezerHighlighter, Rect, RectProps, Txt, signal } from "@motion-canvas/2d";
 import { Reference, SignalValue, SimpleSignal, createRef, useLogger } from "@motion-canvas/core";
 import { parser as parser_cs } from '../parser/cs/lang';
+import { parser as parser_cs2 } from 'lezer-csharp-simple';
 import { parser as parser_nasm } from '../parser/nasm/nasm';
+import { parser as parser_cpp } from '@lezer/cpp';
 import { colors } from '../utils/colorscheme'
 
 export interface CodeBlockProps extends RectProps {
