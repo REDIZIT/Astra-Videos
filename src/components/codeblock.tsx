@@ -5,6 +5,7 @@ import { parser as parser_cs2 } from 'lezer-csharp-simple';
 import { parser as parser_nasm } from '../parser/nasm/nasm';
 import { parser as parser_cpp } from '@lezer/cpp';
 import { colors } from '../utils/colorscheme'
+import { TaggedCodeHighlighter } from "../scenes/math";
 
 export interface CodeBlockProps extends RectProps {
     extension: SignalValue<string>;
@@ -60,7 +61,12 @@ export class CodeBlock extends Rect {
 
         let highlighter = null
         if (this.extension() == "c#") {
-            highlighter = new LezerHighlighter(parser_cs, colors.codeStyle)
+            //highlighter = new LezerHighlighter(parser_cs, colors.codeStyle)
+            highlighter = new TaggedCodeHighlighter(colors.codeStyle)
+
+            highlighter.custom_refTypes.add("Token")
+            highlighter.custom_refTypes.add("Tokenizer")
+            highlighter.custom_refTypes.add("Generator")
         }
         else if (this.extension().endsWith("asm") || this.extension() == "gas") {
             highlighter = new LezerHighlighter(parser_nasm, colors.codeStyle)
