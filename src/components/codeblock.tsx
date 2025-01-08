@@ -1,5 +1,5 @@
-import { CODE, parseCodeScope, Code, CodeTag, Layout, LezerHighlighter, Rect, RectProps, Txt, signal } from "@motion-canvas/2d";
-import { Reference, SignalValue, SimpleSignal, createRef, useLogger } from "@motion-canvas/core";
+import { CODE, parseCodeScope, Code, CodeTag, Layout, LezerHighlighter, Rect, RectProps, Txt, signal, CodeSignal, PossibleCodeScope } from "@motion-canvas/2d";
+import { Reference, SignalGenerator, SignalValue, SimpleSignal, ThreadGenerator, all, createRef, useLogger } from "@motion-canvas/core";
 import { parser as parser_cs } from '../parser/cs/lang';
 import { parser as parser_cs2 } from 'lezer-csharp-simple';
 import { parser as parser_nasm } from '../parser/nasm/nasm';
@@ -42,6 +42,7 @@ export class CodeBlock extends Rect {
     public declare readonly codeContent: SimpleSignal<CodeTag[], this>;
 
     code: Reference<Code>;
+    tab_width: number
 
     public constructor(props: CodeBlockProps) {
         super({
@@ -85,8 +86,30 @@ export class CodeBlock extends Rect {
             />
         </>);
 
-        const tab_width = props.tab_width > 0 ? props.tab_width : 4
+        this.tab_width = props.tab_width > 0 ? props.tab_width : 4
+        
+        this.setCode(this.codeContent().toString())
+    }
 
-        ref_code().code(this.codeContent().toString().replace(/\t/g, ' '.repeat(tab_width)))
+
+    animateCode(codeString: string, duration: number = 0) {
+
+        // Rude first line measure text (extension space + char width * chars count in first line)
+        const extensionLength = this.extension() ? this.extension().toString().length + 4 : 0
+        const firstLineWidth = 12 * extensionLength + 12 * codeString.split('\n')[0].length
+
+        return all(
+            this.code().code(codeString.replace(/\t/g, ' '.repeat(this.tab_width)), duration),
+            this.minWidth(firstLineWidth, duration)
+        )
+    }
+    setCode(codeString: string) {
+
+        // Rude first line measure text (extension space + char width * chars count in first line)
+        const extensionLength = this.extension() ? this.extension().toString().length + 4 : 0
+        const firstLineWidth = 12 * extensionLength + 12 * codeString.split('\n')[0].length
+
+        this.code().code(codeString.replace(/\t/g, ' '.repeat(this.tab_width)))
+        this.minWidth(firstLineWidth)
     }
 }
