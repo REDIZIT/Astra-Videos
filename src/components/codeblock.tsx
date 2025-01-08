@@ -7,10 +7,13 @@ import { parser as parser_cpp } from '@lezer/cpp';
 import { colors } from '../utils/colorscheme'
 import { CSharpCodeHighlighter } from '../scenes/CSharpCodeHighlighter';
 import { NasmCodeHighlighter } from '../scenes/NasmCodeHighlighter';
+import { AstraCodeHighlighter } from "../scenes/AstraCodeHighlighter";
+import llvm from "../scenes/llvm";
+import { LLVMCodeHighlighter } from "../scenes/LLVMCodeHighlighter";
 
 export interface CodeBlockProps extends RectProps {
     extension?: SignalValue<string>
-    codeContent: SignalValue<CodeTag[]>
+    codeContent: SignalValue<string>
     custom_refTypes?: Set<string>
     tab_width?: number
 }
@@ -64,12 +67,19 @@ export class CodeBlock extends Rect {
 
 
         let highlighter = null
-        if (this.extension() != null) {
-            if (this.extension() == "c#") {
+        const ext = this.extension()
+        if (ext != null) {
+            if (ext == "c#") {
                 highlighter = new CSharpCodeHighlighter(props.custom_refTypes)
             }
-            else if (this.extension().endsWith("asm") || this.extension() == "gas") {
+            else if (ext == "astra") {
+                highlighter = new AstraCodeHighlighter(props.custom_refTypes)
+            }
+            else if (ext.endsWith("asm") || ext == "gas") {
                 highlighter = new NasmCodeHighlighter(props.custom_refTypes)
+            }
+            else if (ext == "llvm ir") {
+                highlighter = new LLVMCodeHighlighter(props.custom_refTypes)
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿import { CodeHighlighter, HighlightResult } from '@motion-canvas/2d';
+import { useLogger } from '@motion-canvas/core';
 
 interface LezerCache {
     code: string;
@@ -13,26 +14,29 @@ class Node {
 
 export class CustomCodeHighlighter implements CodeHighlighter<LezerCache | null>
 {
-    keywords: Set<string>;
-    keywords_controlFlow: Set<string>;
-    brackets: Set<string>;
-    operators: Set<string>;
-    builtin_types: Set<string>;
-    builtin_refTypes: Set<string>;
-    strings: Set<string>;
-    singleCharTokens: Set<string>;
+    keywords: Set<string>
+    keywords_controlFlow: Set<string>
+    brackets: Set<string>
+    operators: Set<string>
+    builtin_types: Set<string>
+    builtin_valueTypes: Set<string>;
+    builtin_refTypes: Set<string>
+    strings: Set<string>
+    singleCharTokens: Set<string>
 
-    custom_refTypes: Set<string>;
+    custom_refTypes: Set<string>
 
-    isFlooding: boolean;
-    floodColor: string;
+    isFlooding: boolean
+    floodColor: string
 
-    darkBlue = "#569cd6";
-    green = "#4ec9b0";
-    yellow = "#dcdcaa";
-    orange = "#d69d85";
-    color_comment = "#57a64a";
-    color_controlFlow = "#d8a0df";
+    color_keywords_and_types = "#569cd6"
+    green = "#4ec9b0"
+    yellow = "#dcdcaa"
+    orange = "#d69d85"
+    color_comment = "#57a64a"
+    color_controlFlow = "#d8a0df"
+    color_valueTypes = "#86c691"
+    color_number = "#b5cea8"
 
     fallbackColor = "#dcdcdc";
 
@@ -98,25 +102,23 @@ export class CustomCodeHighlighter implements CodeHighlighter<LezerCache | null>
 
             // If we started from terminator
             if (this.singleCharTokens.has(word)) {
-                words.push(word);
+                if (word != "") words.push(word);
                 word = "";
             }
 
 
             // If we reached token terminator
             else if (this.singleCharTokens.has(char)) {
-                words.push(word);
+                if (word != "") words.push(word);
                 word = "";
             }
             else if (this.tryGetColorSingle(word) != null || this.tryGetColorSingle(char) != null) {
-                words.push(word);
+                if (word != "") words.push(word);
                 word = "";
             }
 
             word += char;
         }
-
-
 
         words.push(word);
 
@@ -182,7 +184,7 @@ export class CustomCodeHighlighter implements CodeHighlighter<LezerCache | null>
     tryGetColorSingle(token: string): string {
 
         if (this.keywords.has(token) || this.builtin_types.has(token)) {
-            return this.darkBlue;
+            return this.color_keywords_and_types;
         }
         else if (this.keywords_controlFlow.has(token)) {
             return this.color_controlFlow;
@@ -193,10 +195,13 @@ export class CustomCodeHighlighter implements CodeHighlighter<LezerCache | null>
         else if (this.builtin_refTypes.has(token)) {
             return this.green;
         }
+        else if (this.builtin_valueTypes != null && this.builtin_valueTypes.has(token)) {
+            return this.color_valueTypes
+        }
 
         // If number
         if (new RegExp('[0-9]').test(token)) {
-            return "#b5cea8"; // pale yellow
+            return this.color_number
         }
 
         return null;

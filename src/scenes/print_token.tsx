@@ -9,7 +9,7 @@ export default makeScene2D(function* (view) {
     const ref_asm = createRef<CodeBlock>()
     const ref_cs = createRef<CodeBlock>()
 
-    const code_asm = CODE`mov rax, 1
+    const code_asm = `mov rax, 1
 mov rdi, 1
 mov rsi, msg
 mov rdx, 14
@@ -230,14 +230,14 @@ _start:
 
 
 
-    const refTypes = new Set(["Token", "Tokenizer", "Generator"])
+    const refTypes = new Set(["Token", "Tokenizer", "Generator", "Token_Print"])
 
     view.add(
         <>
             <Layout ref={layout_1}>
-                <CodeBlock ref={ref_print} codeContent={CODE`print`} extension="astra" width={160} custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_print} codeContent={`print`} extension="astra" width={160} custom_refTypes={refTypes} />
                 <CodeBlock ref={ref_asm} codeContent={code_asm} extension="nasm" width={240} custom_refTypes={refTypes} />
-                <CodeBlock ref={ref_cs} codeContent={CODE`Token_Print`} extension="c#" width={220} custom_refTypes={refTypes} />
+                <CodeBlock ref={ref_cs} codeContent={`Token_Print`} extension="c#" width={220} custom_refTypes={refTypes} />
                 <Spline ref={ref_arrow} points={[[-arrow_width, 0], [arrow_width, 0]]} stroke={"#555"} lineWidth={8} smoothness={0} endArrow arrowSize={10} />
                 <Spline ref={ref_arrow2} points={[[-arrow_width, 0], [arrow_width, 0]]} stroke={"#555"} lineWidth={8} smoothness={0} endArrow arrowSize={10} />
             </Layout>

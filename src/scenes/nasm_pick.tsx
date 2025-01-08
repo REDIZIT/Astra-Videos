@@ -1,6 +1,7 @@
-import { CODE, makeScene2D, Layout } from '@motion-canvas/2d';
+import { CODE, makeScene2D, Layout, Img } from '@motion-canvas/2d';
 import { all, chain, createRef, easeInCubic, waitFor } from '@motion-canvas/core';
 import { CodeBlock } from '../components/codeblock';
+import regs from '../../external/regs.png';
 
 
 export default makeScene2D(function* (view) {
@@ -91,8 +92,10 @@ END main`;
 	const ref_tasm = createRef<CodeBlock>();
 
 	const ref_layout = createRef<Layout>();
+	const ref_regs = createRef<Img>()
 
 	view.add(<Layout ref={ref_layout} scale={0.915}>
+		<Img ref={ref_regs} src={regs} scale={1.35} radius={24} opacity={0} />
 		<CodeBlock ref={ref_nasm} extension="nasm" codeContent={nasm} offset={[-1, 0]} height={480} />
 		<CodeBlock ref={ref_masm} extension="masm" codeContent={masm} offset={[-1, 0]} height={480} />
 		<CodeBlock ref={ref_fasm} extension="fasm" codeContent={fasm} offset={[-1, 0]} height={480} />
@@ -116,6 +119,17 @@ END main`;
 	ref_fasm().x(ref_masm().x() + ref_masm().width() + gap);
 	ref_gas().x(ref_fasm().x() + ref_fasm().width() + gap);
 	ref_tasm().x(ref_gas().x() + ref_gas().width() + gap);
+
+
+	ref_regs().y(100)
+	yield* all(
+		ref_regs().opacity(1, 0.75),
+		ref_regs().y(0, 0.5),
+	)
+	yield* waitFor(1)
+
+	yield* ref_regs().opacity(0, 0.5)
+
 
 	yield* all(
 		chain(

@@ -9,7 +9,7 @@ export default makeScene2D(function* (view) {
     const ref_code = createRef<CodeBlock>()
     const ref_nasm = createRef<CodeBlock>()
 
-    const code_1 = `int myValue`
+    const code_1 = `var myValue`
 	const nasm_1 = `_start:
 	mov rbp, rsp
 	

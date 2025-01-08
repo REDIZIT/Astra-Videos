@@ -1,6 +1,7 @@
-﻿import { CustomCodeHighlighter } from './CustomCodeHighlighter';
+﻿import { useLogger } from '@motion-canvas/core';
+import { CustomCodeHighlighter } from './CustomCodeHighlighter';
 
-export class NasmCodeHighlighter extends CustomCodeHighlighter {
+export class LLVMCodeHighlighter extends CustomCodeHighlighter {
 
     instructions: Set<string>;
 
@@ -9,15 +10,15 @@ export class NasmCodeHighlighter extends CustomCodeHighlighter {
     ) {
         super();
 
-        this.keywords = new Set(["mov", "global"]);
+        this.keywords = new Set(["define", "type", "void", "ptr"]);
         this.keywords_controlFlow = new Set(["ret", "call", "syscall"]);
         this.brackets = new Set(["{", "}", "[", "]", "(", ")", ";", ":", ",", "."]);
         this.operators = new Set(["+", "-", "*", "/"]);
-        this.builtin_types = new Set(["qword", "db", "resb"]);
-        this.builtin_refTypes = new Set(["Exception", "List", "Console", "StringBuilder"]);
+        this.builtin_types = new Set(["i32"]);
+        this.builtin_refTypes = new Set([""]);
         this.strings = new Set(["'", '"']);
         this.singleCharTokens = new Set([" ", "(", ")", ";", "\n"]);
-        this.instructions = new Set(["mov", "add", "sub", "mul", "imul", "push", "pop", "xor", "lea"]);
+        this.instructions = new Set(["mov", "add", "sub", "mul", "imul", "push", "pop", "xor", "lea", "store", "load", "alloca"]);
 
         if (refTypes == null) {
             this.custom_refTypes = new Set();
@@ -58,6 +59,16 @@ export class NasmCodeHighlighter extends CustomCodeHighlighter {
             return this.orange;
         }
 
-        return super.tryGetColor(tokens, index);
+        if (tokens[index] == "i" && !isNaN(parseFloat(tokens[index + 1]))) {
+            return this.color_keywords_and_types
+        }
+
+        const color = super.tryGetColor(tokens, index);
+        if (color == this.color_number) {
+            
+            return this.color_keywords_and_types
+        }
+
+        return color
     }
 }

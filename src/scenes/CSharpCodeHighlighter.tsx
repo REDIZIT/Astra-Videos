@@ -8,11 +8,12 @@ export class CSharpCodeHighlighter extends CustomCodeHighlighter {
         super()
 
         this.keywords = new Set(["new", "public", "private", "static", "class", "struct", "override", "abstract", "virtual", "base", "this" ]);
-        this.keywords_controlFlow = new Set(["return", "if", "else", "throw", "foreach", "for ", "while"]);
+        this.keywords_controlFlow = new Set(["return", "if", "else", "throw", "foreach", "for", "while"]);
         this.brackets = new Set(["{", "}", "[", "]", "(", ")", ";", ":", ",", "."]);
         this.operators = new Set(["+", "-", "*", "/", "=", "==", "!=", ">", ">=", "<", "<=", "+=", "-=", "*=", "/=", "++", "--"]);
         this.builtin_types = new Set(["int", "float", "string", "void", "null"]);
         this.builtin_refTypes = new Set(["Exception", "List", "Console", "StringBuilder"]);
+        this.builtin_valueTypes = new Set(["DateTime"]);
         this.strings = new Set(["'", '"']);
         this.singleCharTokens = new Set([" ", "(", ")", ";", "\n"]);
 
