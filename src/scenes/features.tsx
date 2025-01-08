@@ -307,8 +307,4 @@ struct myStruct
 		ref_code().y(-1500, 2, easeOutCubic),
 		ref_code().rotation(1000, 2, easeOutCubic),
 	)
-	yield* waitFor(1)
-
-
-	yield* waitFor(1)
 });

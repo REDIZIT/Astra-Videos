@@ -3,11 +3,11 @@
   "shared": {
     "background": "rgb(23,23,23)",
     "range": [
-      76.499999,
+      73.63333233333334,
       null
     ],
     "size": {
-      "x": null,
+      "x": 1920,
       "y": 1080
     },
     "audioOffset": 0
