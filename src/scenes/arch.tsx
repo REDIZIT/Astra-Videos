@@ -279,7 +279,7 @@ mov qword [rbp-28], [rbp-24]
         ast[14]().opacity(1, 0.5),
         ref_nasm().code().selection(lines(0, 1), 0.5)
     )
-    yield* waitFor(1)
+    yield* waitFor(0.25)
 
     yield* all(
         ast[12]().opacity(1, 0.5),
@@ -288,14 +288,14 @@ mov qword [rbp-28], [rbp-24]
         ast[10]().opacity(1, 0.5),
         ref_nasm().code().selection(lines(0, 5), 0.5)
     )
-    yield* waitFor(1)
+    yield* waitFor(0.25)
 
     yield* all(
         ast[9]().opacity(1, 0.5),
         ast[8]().opacity(1, 0.5),
         ref_nasm().code().selection(lines(0, 18), 0.5)
     )
-    yield* waitFor(1)
+    yield* waitFor(0.25)
 
     yield* all(
         ast[7]().opacity(1, 0.5),
@@ -304,13 +304,13 @@ mov qword [rbp-28], [rbp-24]
         ast[4]().opacity(1, 0.5),
         ref_nasm().code().selection(lines(0, 25), 0.5)
     )
-    yield* waitFor(1)
+    yield* waitFor(0.25)
 
     yield* all(
         ast[2]().opacity(1, 0.5),
         ref_nasm().code().selection(lines(0, 28), 0.5)
     )
-    yield* waitFor(1)
+    yield* waitFor(0.25)
 
     yield* all(
         ast[3]().opacity(1, 0.5),
@@ -318,7 +318,7 @@ mov qword [rbp-28], [rbp-24]
         ast[0]().opacity(1, 0.5),
         ref_nasm().code().selection(DEFAULT, 0.5)
     )
-    yield* waitFor(1)
+    yield* waitFor(0.25)
 
 
 
