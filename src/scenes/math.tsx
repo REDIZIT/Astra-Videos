@@ -1,5 +1,5 @@
 import { CODE, makeScene2D, Layout, Code, LezerHighlighter, Rect, Img } from '@motion-canvas/2d';
-import { all, chain, createRef, delay, easeInCubic, easeOutBack, linear, useLogger, waitFor } from '@motion-canvas/core';
+import { Direction, all, chain, createRef, delay, easeInCubic, easeOutBack, linear, slideTransition, useLogger, waitFor } from '@motion-canvas/core';
 import { CodeBlock } from '../components/codeblock';
 import chatgptIcon from '../../external/chatgpt-icon.webp';
 
@@ -78,5 +78,4 @@ export default makeScene2D(function* (view) {
 	)
 
 	yield* waitFor(1)
-
 });

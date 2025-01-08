@@ -61,20 +61,4 @@ export class NasmCodeHighlighter extends CustomCodeHighlighter {
 
         return super.tryGetColor(tokens, index);
     }
-
-    tryFindUntilTerminator(tokens: string[], index: number, pattern: string): boolean {
-
-        for (var i = index; i < tokens.length; i++) {
-            const token = tokens[i];
-
-            if (token == "\n") {
-                return false;
-            }
-            if (token.indexOf(pattern) != -1) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

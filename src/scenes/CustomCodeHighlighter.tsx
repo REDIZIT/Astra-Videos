@@ -201,4 +201,41 @@ export class CustomCodeHighlighter implements CodeHighlighter<LezerCache | null>
 
         return null;
     }
+
+    tryFindUntilTerminator(tokens: string[], index: number, pattern: string): boolean {
+        return this.tryGetIndexForwardUntilTerminator(tokens, index, pattern) != -1
+    }
+
+
+    tryGetIndexForwardUntilTerminator(tokens: string[], index: number, pattern: string): number {
+
+        for (var i = index; i < tokens.length; i++) {
+            const token = tokens[i];
+
+            if (token == "\n") {
+                return -1;
+            }
+            if (token.indexOf(pattern) != -1) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    tryGetIndexBackUntilTerminator(tokens: string[], index: number, pattern: string): number {
+
+        for (var i = index; i >= 0; i--) {
+            const token = tokens[i];
+
+            if (token == "\n") {
+                return -1;
+            }
+            if (token.indexOf(pattern) != -1) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 }

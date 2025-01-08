@@ -1,5 +1,5 @@
 import { CODE, makeScene2D, Layout, Code, LezerHighlighter, Rect, Img, lines, word } from '@motion-canvas/2d';
-import { DEFAULT, all, chain, createRef, delay, easeInCubic, easeOutBack, easeOutCubic, linear, useLogger, waitFor } from '@motion-canvas/core';
+import { DEFAULT, Direction, all, chain, createRef, delay, easeInCubic, easeOutBack, easeOutCubic, linear, slideTransition, useLogger, waitFor } from '@motion-canvas/core';
 import { CodeBlock } from '../components/codeblock';
 import chatgptIcon from '../../external/chatgpt-icon.webp';
 
@@ -211,6 +211,8 @@ struct myStruct
 		<CodeBlock ref={ref_nasm} codeContent={nasm_1} extension="nasm" opacity={0} />
 
 	</>)
+
+	yield* slideTransition(Direction.Right, 0.5)
 
 	ref_code().y(100)
 	yield* all(

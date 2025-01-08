@@ -12,14 +12,14 @@ export default makeScene2D(function* (view) {
     const ref_c8 = createRef<Txt>()
     const ref_c9 = createRef<Txt>()
 
-    view.add(<>
+    view.add(<Layout y={-60}>
         <Img ref={ref_bookIcon} src={bookIcon} width={800} radius={24} opacity={0} />
         <Txt ref={ref_c5} text="Глава 5 - Representing Code" fill="#a68af9" fontSize={24} opacity={0} fontFamily="Segoe UI" textAlign="left" width={750}/>
         <Txt ref={ref_c6} text="Глава 6 - Parsing Expressions" fill="#a68af9" fontSize={24} opacity={0} fontFamily="Segoe UI" textAlign="left" width={750} />
         <Txt ref={ref_c7} text="Глава 7 - Evaluating Expressions" fill="#a68af9" fontSize={24} opacity={0} fontFamily="Segoe UI" textAlign="left" width={750} />
         <Txt ref={ref_c8} text="Глава 8 - Statements and State" fill="#a68af9" fontSize={24} opacity={0} fontFamily="Segoe UI" textAlign="left" width={750} />
         <Txt ref={ref_c9} text="Глава 9 - Control Flow" fill="#a68af9" fontSize={24} opacity={0} fontFamily="Segoe UI" textAlign="left" width={750} />
-    </>)
+    </Layout>)
 
 
 
